@@ -1,517 +1,1042 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Morcilla — Portfolio</title>
-  <meta
-    name="description"
-    content="Portfolio of Mark Renz Morcilla — developer, designer, and creator."
-  />
+    <meta charset="UTF-8">
 
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --surface-light: #181818;
-      --text: #f5f5f5;
-      --muted: #999999;
-      --accent: #8b5cf6;
-      --accent-light: #a78bfa;
-      --border: #262626;
-      --max-width: 1100px;
-    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <title>Mark Renz Morcilla | Personal Portfolio</title>
 
-    html {
-      scroll-behavior: smooth;
-    }
+    <style>
 
-    body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            line-height: 1.6;
+        }
 
-    .container {
-      width: min(90%, var(--max-width));
-      margin: 0 auto;
-    }
+        /* ================= NAVIGATION ================= */
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+        header {
+            background: #111827;
+            padding: 18px 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #334155;
+        }
 
-    .nav-inner {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .logo {
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
 
-    .logo span {
-      color: var(--accent-light);
-    }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
+        nav ul li a:hover {
+            color: #38bdf8;
+        }
 
-    .nav-links a:hover {
-      color: var(--text);
-    }
+        /* ================= HERO ================= */
 
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
+        .hero {
+            min-height: 100vh;
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: var(--accent);
-      opacity: 0.12;
-      filter: blur(140px);
-      border-radius: 50%;
-      top: 10%;
-      right: 5%;
-    }
+            display: flex;
 
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-    }
+            align-items: center;
 
-    .eyebrow {
-      color: var(--accent-light);
-      font-weight: 600;
-      margin-bottom: 15px;
-    }
+            justify-content: center;
 
-    .hero h1 {
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-      margin-bottom: 25px;
-    }
+            text-align: center;
 
-    .hero h1 span {
-      color: var(--accent-light);
-    }
+            padding: 120px 20px 50px;
 
-    .hero p {
-      max-width: 600px;
-      color: var(--muted);
-      font-size: 1.15rem;
-      margin-bottom: 35px;
-    }
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1e293b
+                );
+        }
 
-    .buttons {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
+        .hero-content {
+            max-width: 800px;
+        }
 
-    .btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: 0.2s ease;
-    }
+        /* ================= PROFILE IMAGE ================= */
 
-    .btn-primary {
-      background: var(--text);
-      color: var(--bg);
-    }
+        .profile {
+            width: 180px;
+            height: 180px;
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      background: #ddd;
-    }
+            border-radius: 50%;
 
-    .btn-secondary {
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
+            object-fit: cover;
 
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent-light);
-    }
+            border: 5px solid #38bdf8;
 
-    /* Sections */
-    section {
-      padding: 110px 0;
-    }
+            padding: 5px;
 
-    .section-title {
-      font-size: 2.3rem;
-      margin-bottom: 50px;
-      letter-spacing: -0.03em;
-    }
+            background: #0f172a;
 
-    .section-title span {
-      color: var(--accent-light);
-    }
+            margin-bottom: 20px;
 
-    /* About */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
+            box-shadow:
+                0 0 25px rgba(56, 189, 248, 0.5);
 
-    .about-text p {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
+            transition: 0.3s;
+        }
 
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+        .profile:hover {
+            transform: scale(1.05);
 
-    .skill {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 9px 14px;
-      border-radius: 6px;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
+            box-shadow:
+                0 0 40px rgba(56, 189, 248, 0.8);
+        }
 
-    /* Projects */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
+        /* ================= HERO TEXT ================= */
 
-    .project {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 30px;
-      transition: 0.25s ease;
-    }
+        .hero h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
 
-    .project:hover {
-      transform: translateY(-5px);
-      border-color: #444;
-    }
+        .hero h1 span {
+            color: #38bdf8;
+        }
 
-    .project-number {
-      color: var(--accent-light);
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 35px;
-    }
+        .hero p {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
 
-    .project h3 {
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
+        /* ================= BUTTON ================= */
 
-    .project p {
-      color: var(--muted);
-      margin-bottom: 25px;
-    }
+        .btn {
+            display: inline-block;
 
-    .project a {
-      color: var(--accent-light);
-      font-weight: 600;
-    }
+            padding: 12px 25px;
 
-    /* Makes the whole card clickable */
-    .project a::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-    }
+            background: #38bdf8;
 
-    /* Contact */
-    .contact {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-    }
+            color: #0f172a;
 
-    .contact h2 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      line-height: 1;
-      margin-bottom: 20px;
-    }
+            text-decoration: none;
 
-    .contact p {
-      color: var(--muted);
-      margin-bottom: 30px;
-    }
+            border-radius: 8px;
 
-    .socials {
-      margin-top: 35px;
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      color: var(--muted);
-    }
+            font-weight: bold;
 
-    .socials a:hover {
-      color: var(--text);
-    }
+            margin: 5px;
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 25px 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
-    }
+            transition: 0.3s;
+        }
 
-    /* Mobile */
-    @media (max-width: 700px) {
-      .nav-links {
-        gap: 15px;
-      }
+        .btn:hover {
+            transform: translateY(-3px);
 
-      .nav-links a {
-        font-size: 0.8rem;
-      }
+            background: #7dd3fc;
 
-      .about-grid,
-      .projects {
-        grid-template-columns: 1fr;
-      }
+            box-shadow:
+                0 8px 20px rgba(56, 189, 248, 0.25);
+        }
 
-      .about-grid {
-        gap: 35px;
-      }
+        /* ================= SECTIONS ================= */
 
-      section {
-        padding: 80px 0;
-      }
+        section {
+            padding: 90px 8%;
+        }
 
-      .hero h1 {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
+        .section-title {
+            text-align: center;
+
+            font-size: 35px;
+
+            margin-bottom: 45px;
+
+            color: #38bdf8;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            max-width: 900px;
+
+            margin: auto;
+
+            text-align: center;
+
+            background: #1e293b;
+
+            padding: 35px;
+
+            border-radius: 15px;
+
+            border: 1px solid #334155;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .about p {
+            color: #cbd5e1;
+
+            font-size: 18px;
+        }
+
+        /* ================= SKILLS ================= */
+
+        .skills-container {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+        .skill {
+            background: #1e293b;
+
+            padding: 30px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            border: 1px solid #334155;
+
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            transform: translateY(-5px);
+
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 10px 25px rgba(56, 189, 248, 0.15);
+        }
+
+        .skill h3 {
+            margin-bottom: 10px;
+
+            color: #38bdf8;
+        }
+
+        .skill p {
+            color: #cbd5e1;
+        }
+
+        /* ===== PHOTO PRINTING SKILL (NEW) ===== */
+
+        .skill-wide {
+            grid-column: span 2;
+        }
+
+        .skill-icon {
+            display: block;
+
+            font-size: 34px;
+
+            margin-bottom: 8px;
+        }
+
+        .skill-list {
+            list-style: none;
+
+            margin-top: 18px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #334155;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(200px, 1fr)
+                );
+
+            gap: 8px 20px;
+
+            text-align: left;
+        }
+
+        .skill-list li {
+            color: #cbd5e1;
+
+            font-size: 15px;
+
+            padding-left: 22px;
+
+            position: relative;
+        }
+
+        .skill-list li::before {
+            content: "✔";
+
+            position: absolute;
+
+            left: 0;
+
+            color: #38bdf8;
+        }
+
+        /* ===== EDUCATION (NEW) ===== */
+
+        .education-container {
+            max-width: 800px;
+
+            margin: auto;
+        }
+
+        /* ================= PROJECTS ================= */
+
+        .projects-container {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap: 25px;
+        }
+
+        .project {
+            background: #1e293b;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            border: 1px solid #334155;
+
+            transition: 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 10px 25px rgba(56, 189, 248, 0.15);
+        }
+
+        /* Clickable project cards (links) */
+
+        .project-link {
+            display: block;
+
+            color: inherit;
+
+            text-decoration: none;
+        }
+
+        .project img {
+            width: 100%;
+
+            height: 200px;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            color: #38bdf8;
+
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: #cbd5e1;
+        }
+
+        /* ================= CONTACT ================= */
+
+        .contact {
+            text-align: center;
+
+            max-width: 600px;
+
+            margin: auto;
+
+            background: #1e293b;
+
+            padding: 35px;
+
+            border-radius: 15px;
+
+            border: 1px solid #334155;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact p {
+            color: #cbd5e1;
+
+            margin: 10px;
+
+            font-size: 17px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            padding: 25px;
+
+            background: #111827;
+
+            color: #94a3b8;
+
+            border-top: 1px solid #334155;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 15px 5%;
+            }
+
+            nav {
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 12px;
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: 160px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .profile {
+                width: 150px;
+
+                height: 150px;
+            }
+
+            section {
+                padding: 70px 5%;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            /* New Photo Printing card: full width on mobile */
+            .skill-wide {
+                grid-column: span 1;
+            }
+
+            .skill-list {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="container nav-inner">
-      <a href="#" class="logo">Your<span>.</span></a>
 
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+    <!-- ================= NAVIGATION ================= -->
 
-  <!-- Hero -->
-  <main>
-    <section class="hero">
-      <div class="container hero-content">
-        <p class="eyebrow">Hello, I'm</p>
+    <header>
 
-        <h1>
-          Mark Renz Morcilla<br />
-          <span>Creative Developer.</span>
-        </h1>
+        <nav>
+
+            <div class="logo">
+                MRM.
+            </div>
+
+
+            <ul>
+
+                <li>
+                    <a href="#home">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#about">
+                        About
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#skills">
+                        Skills
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#education">
+                        Education
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#projects">
+                        Projects
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#contact">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= HOME ================= -->
+
+    <section
+        class="hero"
+        id="home"
+    >
+
+        <div class="hero-content">
+
+
+            <!-- PROFILE PICTURE -->
+
+            <!--
+                IMPORTANT:
+                Your image filename is:
+                profile.jpg.jfif
+
+                It should be inside:
+                images/profile.jpg.jfif
+            -->
+
+            <img
+                src="images/profile.jpg.jfif"
+                alt="Mark Renz Morcilla"
+                class="profile"
+            >
+
+
+            <h1>
+
+                Hello, I'm
+
+                <span>
+                    Mark Renz
+                </span>
+
+            </h1>
+
+
+            <p>
+                Student |
+                Web Developer |
+                Basketball Enthusiast
+            </p>
+
+
+            <a
+                href="#about"
+                class="btn"
+            >
+                About Me
+            </a>
+
+
+            <a
+                href="#projects"
+                class="btn"
+            >
+                My Projects
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about">
+
+        <h2 class="section-title">
+            About Me
+        </h2>
+
+
+        <div class="about">
+
+            <p>
+                Hi! I'm Mark Renz Morcilla, a student interested in
+                technology, web development, and creating useful
+                digital projects.
+            </p>
+
+
+            <br>
+
+
+            <p>
+                I enjoy learning HTML, CSS, PHP, MySQL, and other
+                programming technologies.
+            </p>
+
+
+            <br>
+
+
+            <p>
+                I also have practical experience helping run our family
+                photo printing business, where I assist with printing
+                and preparing photos, basic photo editing, and handling
+                customer orders. This work has taught me responsibility,
+                attention to detail, and how to provide quality service
+                to real customers.
+            </p>
+
+
+            <br>
+
+
+            <p>
+                Outside of programming, I enjoy playing basketball,
+                spending time with friends, and learning new skills.
+                My goal is to continue improving my technical skills
+                and create projects that can help people.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SKILLS ================= -->
+
+    <section id="skills">
+
+        <h2 class="section-title">
+            My Skills
+        </h2>
+
+
+        <div class="skills-container">
+
+
+            <div class="skill">
+
+                <h3>
+                    HTML
+                </h3>
+
+                <p>
+                    Creating website structures and pages.
+                </p>
+
+            </div>
+
+
+            <div class="skill">
+
+                <h3>
+                    CSS
+                </h3>
+
+                <p>
+                    Designing responsive and modern websites.
+                </p>
+
+            </div>
+
+
+            <div class="skill">
+
+                <h3>
+                    PHP
+                </h3>
+
+                <p>
+                    Building dynamic web applications.
+                </p>
+
+            </div>
+
+
+            <div class="skill">
+
+                <h3>
+                    MySQL
+                </h3>
+
+                <p>
+                    Managing and organizing databases.
+                </p>
+
+            </div>
+
+
+            <div class="skill">
+
+                <h3>
+                    UI Design
+                </h3>
+
+                <p>
+                    Creating simple and user-friendly interfaces.
+                </p>
+
+            </div>
+
+
+            <div class="skill">
+
+                <h3>
+                    Problem Solving
+                </h3>
+
+                <p>
+                    Finding solutions to programming problems.
+                </p>
+
+            </div>
+
+
+            <!-- NEW SKILL: PHOTO PRINTING -->
+
+            <div class="skill skill-wide">
+
+                <span class="skill-icon">
+                    🖨️
+                </span>
+
+                <h3>
+                    Photo Printing
+                </h3>
+
+                <p>
+                    Experienced in assisting with our family photo
+                    printing business, including photo printing, basic
+                    photo editing, preparing pictures for printing,
+                    handling customer orders, and providing quality
+                    printed photos.
+                </p>
+
+                <ul class="skill-list">
+
+                    <li>Photo Printing and Processing</li>
+
+                    <li>Basic Photo Editing</li>
+
+                    <li>Photo Resizing and Cropping</li>
+
+                    <li>Picture Layout and Arrangement</li>
+
+                    <li>Customer Service</li>
+
+                    <li>Managing Photo Printing Orders</li>
+
+                    <li>Operating Photo Printing Equipment</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EDUCATION ================= -->
+
+    <section id="education">
+
+        <h2 class="section-title">
+            Education
+        </h2>
+
+
+        <div class="skills-container education-container">
+
+
+            <div class="skill">
+
+                <span class="skill-icon">
+                    🎓
+                </span>
+
+                <h3>
+                    College
+                </h3>
+
+                <p>
+                    Currently a 3rd Year student. Completed 1st Year
+                    and 2nd Year.
+                </p>
+
+            </div>
+
+
+            <div class="skill">
+
+                <span class="skill-icon">
+                    🏫
+                </span>
+
+                <h3>
+                    Senior High School
+                </h3>
+
+                <p>
+                    Graduate of Placido T. Amo Senior High School.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROJECTS ================= -->
+
+    <section id="projects">
+
+        <h2 class="section-title">
+            My Projects
+        </h2>
+
+
+        <div class="projects-container">
+
+
+            <!-- PROJECT 1 -->
+
+            <a
+                href="https://memorymatch.42web.io/?i=1"
+                target="_blank"
+                rel="noopener"
+                class="project project-link"
+            >
+
+                <img
+                    src="images/project4.jpg"
+                    alt="Memory Match"
+                >
+
+
+                <div class="project-content">
+
+                    <h3>
+                        Memory Match
+                    </h3>
+
+
+                    <p>
+                        A card-matching memory game that tests your
+                        focus and recall, built for quick, fun play
+                        in the browser.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- PROJECT 2 -->
+
+            <a
+                href="https://library.wuaze.com/index.php"
+                target="_blank"
+                rel="noopener"
+                class="project project-link"
+            >
+
+                <img
+                    src="images/project5.jpg"
+                    alt="Library System"
+                >
+
+
+                <div class="project-content">
+
+                    <h3>
+                        Library System
+                    </h3>
+
+
+                    <p>
+                        A web-based library platform for browsing
+                        and managing books and library records.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <!-- PROJECT 3 -->
+
+            <a
+                href="https://school-it-ticketing.42web.io"
+                target="_blank"
+                rel="noopener"
+                class="project project-link"
+            >
+
+                <img
+                    src="images/project6.jpg"
+                    alt="School IT Ticketing"
+                >
+
+
+                <div class="project-content">
+
+                    <h3>
+                        School IT Ticketing
+                    </h3>
+
+
+                    <p>
+                        A ticketing system that lets students and
+                        staff report IT issues and track their
+                        resolution.
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section id="contact">
+
+        <h2 class="section-title">
+            Contact Me
+        </h2>
+
+
+        <div class="contact">
+
+
+            <p>
+                📧 Email:
+                mrmorcilla@gmail.com
+            </p>
+
+
+            <p>
+                📱 Phone:
+                09928825714
+            </p>
+
+
+            <p>
+                📍 Ticalan, San Juan, Batangas, Philippines
+            </p>
+
+
+            <br>
+
+
+            <a
+                href="mailto:mrmorcilla@gmail.com"
+                class="btn"
+            >
+                Send Me an Email
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
 
         <p>
-          I build clean, modern, and user-focused digital experiences.
-          I enjoy turning ideas into fast, beautiful, and functional websites.
+            © 2026 Mark Renz Morcilla.
+            All Rights Reserved.
         </p>
 
-        <div class="buttons">
-          <a href="#projects" class="btn btn-primary">
-            View My Work
-          </a>
+    </footer>
 
-          <a href="#contact" class="btn btn-secondary">
-            Get In Touch
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About <span>Me</span></h2>
-
-        <div class="about-grid">
-          <div class="about-text">
-            <p>
-              I'm a developer passionate about creating websites and
-              applications that are simple, effective, and enjoyable to use.
-            </p>
-
-            <p>
-              When I'm not coding, I enjoy learning new technologies,
-              experimenting with designs, and working on personal projects.
-            </p>
-          </div>
-
-          <div>
-            <div class="skills">
-              <span class="skill">HTML</span>
-              <span class="skill">CSS</span>
-              <span class="skill">JavaScript</span>
-              <span class="skill">React</span>
-              <span class="skill">Node.js</span>
-              <span class="skill">Git</span>
-              <span class="skill">UI/UX</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects">
-      <div class="container">
-        <h2 class="section-title">Selected <span>Projects</span></h2>
-
-        <div class="projects">
-
-          <article class="project">
-            <div class="project-number">01 / PROJECT</div>
-            <h3>Library System</h3>
-            <p>
-              A web-based library platform for browsing and managing
-              books and library records.
-            </p>
-            <a href="https://library.wuaze.com/index.php" target="_blank" rel="noopener">
-              View Project →
-            </a>
-          </article>
-
-          <article class="project">
-            <div class="project-number">02 / PROJECT</div>
-            <h3>School IT Ticketing</h3>
-            <p>
-              A ticketing system that lets students and staff report
-              IT issues and track their resolution.
-            </p>
-            <a href="https://school-it-ticketing.42web.io" target="_blank" rel="noopener">
-              View Project →
-            </a>
-          </article>
-
-          <article class="project">
-            <div class="project-number">03 / PROJECT</div>
-            <h3>Memory Match</h3>
-            <p>
-              A card-matching memory game that tests your focus and recall,
-              built for quick, fun play in the browser.
-            </p>
-            <a href="https://memorymatch.42web.io/?i=1" target="_blank" rel="noopener">
-              View Project →
-            </a>
-          </article>
-
-          <article class="project">
-            <div class="project-number">04 / PROJECT</div>
-            <h3>Project Four</h3>
-            <p>
-              A practical tool built to make a common workflow faster,
-              easier, and more efficient.
-            </p>
-            <a href="#" target="_blank" rel="noopener">
-              View Project →
-            </a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <div class="contact">
-          <h2>Let's work<br />together.</h2>
-
-          <p>
-            Have a project in mind or just want to say hello?
-            Feel free to reach out.
-          </p>
-
-          <a
-            href="mailto:you@example.com"
-            class="btn btn-primary"
-          >
-            Email Me
-          </a>
-
-          <div class="socials">
-            <a href="#" target="_blank" rel="noopener">GitHub</a>
-            <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="#" target="_blank" rel="noopener">Twitter</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      © 2026 Your Name. All rights reserved.
-    </div>
-  </footer>
 
 </body>
+
 </html>
