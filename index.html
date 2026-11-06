@@ -232,6 +232,7 @@
     }
 
     .project {
+      position: relative;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -264,6 +265,13 @@
     .project a {
       color: var(--accent-light);
       font-weight: 600;
+    }
+
+    /* Makes the whole card clickable */
+    .project a::after {
+      content: "";
+      position: absolute;
+      inset: 0;
     }
 
     /* Contact */
@@ -420,36 +428,36 @@
 
           <article class="project">
             <div class="project-number">01 / PROJECT</div>
-            <h3>Project One</h3>
+            <h3>Library System</h3>
             <p>
-              A modern web application designed to solve a real-world problem
-              with a simple and intuitive interface.
+              A web-based library platform for browsing and managing
+              books and library records.
             </p>
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://library.wuaze.com/index.php" target="_blank" rel="noopener">
               View Project →
             </a>
           </article>
 
           <article class="project">
             <div class="project-number">02 / PROJECT</div>
-            <h3>Project Two</h3>
+            <h3>School IT Ticketing</h3>
             <p>
-              A responsive website focused on performance, accessibility,
-              and a polished user experience.
+              A ticketing system that lets students and staff report
+              IT issues and track their resolution.
             </p>
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://school-it-ticketing.42web.io" target="_blank" rel="noopener">
               View Project →
             </a>
           </article>
 
           <article class="project">
             <div class="project-number">03 / PROJECT</div>
-            <h3>Project Three</h3>
+            <h3>Memory Match</h3>
             <p>
-              An experimental project exploring creative interfaces,
-              animations, and modern web technologies.
+              A card-matching memory game that tests your focus and recall,
+              built for quick, fun play in the browser.
             </p>
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://memorymatch.42web.io/?i=1" target="_blank" rel="noopener">
               View Project →
             </a>
           </article>
