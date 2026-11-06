@@ -432,6 +432,184 @@
       inset: 0;
     }
 
+    /* ===== About ===== */
+    #about {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #about::before {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      left: -140px;
+      top: 30%;
+      background: var(--accent);
+      opacity: 0.1;
+      filter: blur(120px);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    #about .container {
+      position: relative;
+    }
+
+    .about-head {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .about-head .section-title {
+      margin-bottom: 0;
+    }
+
+    .about-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: 22px;
+    }
+
+    .about-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(160deg, #171717, #0f0f0f);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 26px 26px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Gradient line on top */
+    .about-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #22d3ee);
+    }
+
+    /* Glow in the corner */
+    .about-card::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      top: -120px;
+      right: -120px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.35), transparent 70%);
+      opacity: 0.45;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .about-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(139, 92, 246, 0.18);
+    }
+
+    .about-card:hover::after {
+      opacity: 0.9;
+    }
+
+    .about-card h3 {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.25rem;
+      margin-bottom: 22px;
+    }
+
+    .card-icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), #6d28d9);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+      font-size: 1.3rem;
+    }
+
+    .about-list {
+      position: relative;
+      z-index: 1;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+    }
+
+    .about-list li {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: var(--muted);
+      transition: 0.25s ease;
+    }
+
+    .about-list li:hover {
+      transform: translateX(5px);
+      background: rgba(139, 92, 246, 0.09);
+      border-color: rgba(167, 139, 250, 0.25);
+    }
+
+    .ico {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(34, 211, 238, 0.14));
+      font-size: 1.05rem;
+    }
+
+    .about-list strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Scroll reveal */
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition-delay: var(--d, 0s);
+    }
+
+    .js .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .js .about-card.reveal.in {
+      transition: opacity 0.7s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition-delay: var(--d, 0s), 0s, 0s, 0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
     /* Certifications */
     .certs {
       display: grid;
@@ -520,11 +698,28 @@
     }
 
     .contact-cards {
-      margin-top: 35px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 15px;
+    }
+
+    .contact-cards:first-of-type {
+      margin-top: 35px;
+    }
+
+    .contact-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .contact-card > span:last-child {
+      min-width: 0;
+    }
+
+    @media (max-width: 600px) {
+      .contact-cards {
+        grid-template-columns: 1fr;
+      }
     }
 
     .contact-card {
@@ -563,6 +758,28 @@
 
     .contact-card strong {
       font-weight: 600;
+    }
+
+    /* About groups (contact-card style) */
+    .about-groups {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .about-group + .about-group {
+      margin-top: 50px;
+    }
+
+    .about-group h3 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+
+    .about-group .contact-cards {
+      margin-top: 0;
     }
 
     /* Footer */
@@ -620,6 +837,7 @@
       }
     }
   </style>
+  <script>document.documentElement.className += ' js';</script>
 </head>
 
 <body>
@@ -690,32 +908,82 @@
     <!-- About -->
     <section id="about">
       <div class="container">
-        <h2 class="section-title">About <span>Me</span></h2>
 
-        <div class="about-grid">
-          <div class="about-text">
-            <p>
-              I'm a developer passionate about creating websites and
-              applications that are simple, effective, and enjoyable to use.
-            </p>
+        <div class="about-head reveal">
+          <p class="eyebrow">Know me better</p>
+          <h2 class="section-title">Get to <span>Know Me</span></h2>
+        </div>
 
-            <p>
-              When I'm not coding, I enjoy learning new technologies,
-              experimenting with designs, and working on personal projects.
-            </p>
-          </div>
+        <div class="about-groups">
 
-          <div>
-            <div class="skills">
-              <span class="skill">HTML</span>
-              <span class="skill">CSS</span>
-              <span class="skill">JavaScript</span>
-              <span class="skill">React</span>
-              <span class="skill">Node.js</span>
-              <span class="skill">Git</span>
-              <span class="skill">UI/UX</span>
+          <div class="about-group reveal" style="--d: 0s">
+            <h3><span class="card-icon">⚡</span> About My Skills</h3>
+            <div class="contact-cards">
+              <div class="contact-card">
+                <span class="contact-icon">🏀</span>
+                <span>
+                  <small>Sports</small>
+                  <strong>Basketball</strong>
+                </span>
+              </div>
+              <div class="contact-card">
+                <span class="contact-icon">🏐</span>
+                <span>
+                  <small>Sports</small>
+                  <strong>Volleyball</strong>
+                </span>
+              </div>
+              <div class="contact-card">
+                <span class="contact-icon">💻</span>
+                <span>
+                  <small>Tech</small>
+                  <strong>Computer Literacy</strong>
+                </span>
+              </div>
+              <div class="contact-card">
+                <span class="contact-icon">🛠️</span>
+                <span>
+                  <small>Tech</small>
+                  <strong>Troubleshooting</strong>
+                </span>
+              </div>
+              <div class="contact-card wide">
+                <span class="contact-icon">👨‍💻</span>
+                <span>
+                  <small>Tech</small>
+                  <strong>Programming</strong>
+                </span>
+              </div>
             </div>
           </div>
+
+          <div class="about-group reveal" style="--d: 0.1s">
+            <h3><span class="card-icon">🎨</span> My Passions &amp; Interests</h3>
+            <div class="contact-cards">
+              <div class="contact-card">
+                <span class="contact-icon">🎮</span>
+                <span>
+                  <small>Gaming</small>
+                  <strong>Playing Online Games</strong>
+                </span>
+              </div>
+              <div class="contact-card">
+                <span class="contact-icon">📷</span>
+                <span>
+                  <small>Photography / Art</small>
+                  <strong>Nature photography and Sunsets</strong>
+                </span>
+              </div>
+              <div class="contact-card wide">
+                <span class="contact-icon">✈️</span>
+                <span>
+                  <small>Travel &amp; Exploration</small>
+                  <strong>Love exploring new places</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -902,6 +1170,24 @@
               </span>
             </a>
           </div>
+
+          <div class="contact-cards">
+            <div class="contact-card wide">
+              <span class="contact-icon">🌱</span>
+              <span>
+                <small>Age</small>
+                <strong>20</strong>
+              </span>
+            </div>
+
+            <div class="contact-card wide">
+              <span class="contact-icon">📍</span>
+              <span>
+                <small>Lives in</small>
+                <strong>Balele, Deca Homes, Tanauan City, Batangas</strong>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -913,6 +1199,26 @@
       © 2026 Mark Renz Morcilla. All rights reserved.
     </div>
   </footer>
+
+  <script>
+    // Fade-in on scroll
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        items.forEach(function (el) { el.classList.add("in"); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 
 </body>
 </html>
