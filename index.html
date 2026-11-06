@@ -265,39 +265,6 @@
       transform: scale(1.08);
     }
 
-    /* Floating skill chips */
-    .chip {
-      position: absolute;
-      z-index: 2;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(17, 17, 17, 0.8);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(167, 139, 250, 0.35);
-      color: var(--text);
-      font-size: 0.8rem;
-      font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      animation: float 4s ease-in-out infinite;
-    }
-
-    .chip-1 {
-      top: 6%;
-      right: -4%;
-    }
-
-    .chip-2 {
-      top: 46%;
-      left: -10%;
-      animation-delay: -1.5s;
-    }
-
-    .chip-3 {
-      bottom: 6%;
-      right: 6%;
-      animation-delay: -3s;
-    }
-
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
@@ -309,8 +276,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .orbit,
-      .photo-frame::before,
-      .chip {
+      .photo-frame::before {
         animation: none;
       }
     }
@@ -652,14 +618,6 @@
         order: -1;
         width: min(72%, 280px);
       }
-
-      .chip-1 {
-        right: -2%;
-      }
-
-      .chip-2 {
-        left: -4%;
-      }
     }
   </style>
 </head>
@@ -729,9 +687,6 @@
             </div>
           </div>
 
-          <span class="chip chip-1">&lt;/&gt; HTML</span>
-          <span class="chip chip-2">{ } JavaScript</span>
-          <span class="chip chip-3">UI/UX</span>
         </div>
 
       </div>
@@ -916,18 +871,6 @@
               built for quick, fun play in the browser.
             </p>
             <a href="https://memorymatch.42web.io/?i=1" target="_blank" rel="noopener">
-              View Project →
-            </a>
-          </article>
-
-          <article class="project">
-            <div class="project-number">04 / PROJECT</div>
-            <h3>Project Four</h3>
-            <p>
-              A practical tool built to make a common workflow faster,
-              easier, and more efficient.
-            </p>
-            <a href="#" target="_blank" rel="noopener">
               View Project →
             </a>
           </article>
