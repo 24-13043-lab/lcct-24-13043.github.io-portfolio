@@ -33,10 +33,10 @@ nav div{display:flex;gap:28px}nav div a{color:var(--mut);transition:.2s}nav div 
 .hud{position:absolute;font-family:var(--m);font-size:.7rem;letter-spacing:.12em;color:var(--mut);text-transform:uppercase;z-index:4}
 .hud em{color:var(--or);font-style:normal}
 .cn{position:absolute;width:16px;height:16px;border:1px solid var(--or);z-index:4}
-.portrait{position:absolute;left:50%;top:50%;width:min(36vw,430px);aspect-ratio:3/4;transform:translate(-62%,-52%);z-index:2}
-.portrait .l{position:absolute;inset:0;background:#15171c center top/cover;display:grid;place-items:center;font-family:var(--d);font-size:6rem;color:#2a2d35}
-.portrait .l.a{filter:grayscale(1) contrast(1.1) brightness(.85)}
-.portrait .l.b{filter:sepia(1) hue-rotate(-18deg) saturate(3.2) contrast(1.15) drop-shadow(0 0 25px rgba(255,90,31,.6));clip-path:inset(0 0 100% 0)}
+.portrait{position:absolute;left:50%;top:50%;width:min(40vw,520px);aspect-ratio:3/4;transform:translate(-62%,-52%);z-index:2}
+.portrait .l{position:absolute;inset:0;background:center bottom/contain no-repeat}
+.portrait .l.a{filter:drop-shadow(0 20px 40px rgba(0,0,0,.6))}
+.portrait .l.b{filter:saturate(1.25) contrast(1.08) drop-shadow(0 0 3px #ff5a1f) drop-shadow(0 0 22px rgba(255,90,31,.75));clip-path:inset(0 0 100% 0)}
 .scan{position:absolute;left:-12%;right:-12%;height:2px;background:var(--or);box-shadow:0 0 20px 3px var(--or);top:0;z-index:5}
 .chip{position:absolute;z-index:6;font-family:var(--m);font-weight:600;font-size:.8rem;padding:8px 11px;border:1px solid var(--or);color:var(--or);background:rgba(7,8,10,.7);opacity:0;transform:scale(.6);transition:.4s}
 .on .chip{opacity:1;transform:none}
@@ -120,8 +120,8 @@ footer{border-top:1px solid var(--ln);padding:22px 0;color:var(--mut);font-size:
  <div class="hud" style="right:5%;top:84px">14.0864° N 121.1497° E</div>
  <div class="cn" style="left:3%;top:72px;border-right:0;border-bottom:0"></div><div class="cn" style="right:3%;top:72px;border-left:0;border-bottom:0"></div>
  <div class="portrait" id="pt">
-  <div class="l a" style="background-image:url(profile.jpg)">MR</div>
-  <div class="l b" id="sb" style="background-image:url(profile.jpg)">MR</div>
+  <div class="l a" style="background-image:url(profile.png)"></div>
+  <div class="l b" id="sb" style="background-image:url(profile.png)"></div>
   <div class="scan" id="sc"></div>
   <span class="chip" style="left:-18%;top:42%">&lt;/&gt;</span><span class="chip" style="right:-16%;top:60%">{ JS }</span><span class="chip" style="left:8%;bottom:6%">⚛ REACT</span>
  </div>
