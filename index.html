@@ -359,6 +359,7 @@ footer a:hover{color:var(--or)}
   <a href="#home" class="logo" aria-label="Mark Renz Morcilla — home"><i></i>Mark Renz Morcilla</a>
   <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="links"><i></i></button>
   <ul class="links" id="links">
+    <li><a href="#home">Home</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#certs">Certs</a></li>
@@ -557,9 +558,6 @@ footer a:hover{color:var(--or)}
         <label>Name<input name="name" placeholder="Jane Holm" required autocomplete="name" /></label>
         <label>Email<input name="email" type="email" placeholder="jane@studio.com" required autocomplete="email" /></label>
       </div>
-      <label>What needs solving
-        <select name="topic"><option>Website</option><option>Web app</option><option>IT support / troubleshooting</option><option>Something else</option></select>
-      </label>
       <label>The brief
         <textarea name="brief" placeholder="What is the project, and what should it do?" required></textarea>
       </label>
@@ -773,12 +771,18 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
  lb.addEventListener("click",close);addEventListener("keydown",function(e){if(e.key==="Escape")close()})})();
 
 /* ============ CONTACT ============ */
-(function(){var f=$("#brief"),st=$("#fstatus");
+(function(){var f=$("#brief"),st=$("#fstatus"),btn=$("button[type=submit]",f);
+ var TO="24-13043@lcctanauan.edu.ph";
  f.addEventListener("submit",function(e){e.preventDefault();
   if(!f.checkValidity()){f.reportValidity();return}
-  var d=new FormData(f),sub="[Portfolio] "+d.get("topic")+" — "+d.get("name"),body=d.get("brief")+"\n\n— "+d.get("name")+" ("+d.get("email")+")";
-  st.textContent="// Signal ready — your mail app should open. If not, write to mrmorcilla@gmail.com";
-  location.href="mailto:mrmorcilla@gmail.com?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body)})})();
+  var d=new FormData(f),name=d.get("name"),email=d.get("email"),msg=d.get("brief");
+  var sub="[Portfolio] New message — "+name;
+  btn.disabled=true;st.textContent="// Transmitting…";
+  fetch("https://formsubmit.co/ajax/"+TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+   body:JSON.stringify({name:name,email:email,message:msg,_subject:sub,_replyto:email,_template:"table",_captcha:"false"})})
+  .then(function(r){return r.json()})
+  .then(function(j){if(j&&(j.success===true||j.success==="true")){f.reset();st.textContent="// Signal sent — thanks, "+name+"! I'll reply to "+email+" soon."}else throw 0})
+  .catch(function(){st.textContent="// Couldn't send your message. Please try again in a moment."}).then(function(){btn.disabled=false})})})();
 
 /* ============ SIGNAL ============ */
 (function(){var el=$("#sig");roam(el,function(x,y){el.style.setProperty("--x",x+"px");el.style.setProperty("--y",y+"px")},"always")})();
