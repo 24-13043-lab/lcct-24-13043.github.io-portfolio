@@ -776,19 +776,11 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
  if(!f||!st||!btn)return;
  // Destination inbox for all portfolio inquiries.
  var TO="mrmorcilla@gmail.com";
- function showGmailFallback(name,email,msg,reason){
-  st.textContent="// Automatic delivery is not active yet. Open Gmail to send your inquiry manually: ";
+ function gmailComposeUrl(name,email,msg){
   var subject="[Portfolio Inquiry] New message from "+name;
   var body="Name: "+name+"\nEmail: "+email+"\n\nMessage:\n"+msg;
-  var url="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(TO)+
+  return "https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(TO)+
     "&su="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
-  var link=document.createElement("a");
-  link.href=url;link.target="_blank";link.rel="noopener noreferrer";
-  link.textContent="OPEN GMAIL AND SEND ↗";
-  link.style.cssText="display:inline-block;margin-top:10px;color:var(--or);text-decoration:underline;text-underline-offset:4px;font-weight:700;";
-  st.appendChild(document.createElement("br"));
-  st.appendChild(link);
-  if(reason)console.warn("Portfolio contact form fallback:",reason);
  }
  f.addEventListener("submit",function(e){
   e.preventDefault();
@@ -798,6 +790,8 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
   var email=String(d.get("email")||"").trim();
   var msg=String(d.get("brief")||"").trim();
   var sub="[Portfolio Inquiry] New message from "+name;
+  // Open a tab during the click gesture so Gmail can be used if automatic delivery fails.
+  var gmailTab=window.open("about:blank","_blank");
   btn.disabled=true;
   st.textContent="// Sending your inquiry…";
   fetch("https://formsubmit.co/ajax/"+TO,{
@@ -813,14 +807,18 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
   })
   .then(function(result){
    if(result&&(result.success===true||result.success==="true")){
+    if(gmailTab&&!gmailTab.closed)gmailTab.close();
     f.reset();
-    st.textContent="// Inquiry sent successfully to "+TO+". Thank you, "+name+"!";
+    st.textContent="// Inquiry sent successfully. Thank you, "+name+"!";
    }else{
-    showGmailFallback(name,email,msg,result&&result.message?result.message:"FormSubmit activation is required.");
+    if(gmailTab&&!gmailTab.closed)gmailTab.location.href=gmailComposeUrl(name,email,msg);
+    st.textContent="// Opening Gmail to complete your inquiry…";
    }
   })
   .catch(function(error){
-   showGmailFallback(name,email,msg,error&&error.message?error.message:"Network or email-service error.");
+   if(gmailTab&&!gmailTab.closed)gmailTab.location.href=gmailComposeUrl(name,email,msg);
+   st.textContent="// Automatic delivery unavailable. Gmail is opening so you can send your inquiry.";
+   console.warn("Portfolio contact form fallback:",error);
   })
   .then(function(){btn.disabled=false;});
  });
