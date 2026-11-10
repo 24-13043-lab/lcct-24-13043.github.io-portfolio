@@ -772,7 +772,9 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
 
 /* ============ CONTACT ============ */
 (function(){var f=$("#brief"),st=$("#fstatus"),btn=$("button[type=submit]",f);
- var TO="24-13043@lcctanauan.edu.ph";
+ var TO="mrmorcilla@gmail.com";
+ function fallback(name,email,msg){
+  location.href="mailto:"+TO+"?subject="+encodeURIComponent("[Portfolio] New message — "+name)+"&body="+encodeURIComponent(msg+"\n\n— "+name+" ("+email+")")}
  f.addEventListener("submit",function(e){e.preventDefault();
   if(!f.checkValidity()){f.reportValidity();return}
   var d=new FormData(f),name=d.get("name"),email=d.get("email"),msg=d.get("brief");
@@ -780,9 +782,14 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
   btn.disabled=true;st.textContent="// Transmitting…";
   fetch("https://formsubmit.co/ajax/"+TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
    body:JSON.stringify({name:name,email:email,message:msg,_subject:sub,_replyto:email,_template:"table",_captcha:"false"})})
-  .then(function(r){return r.json()})
-  .then(function(j){if(j&&(j.success===true||j.success==="true")){f.reset();st.textContent="// Signal sent — thanks, "+name+"! I'll reply to "+email+" soon."}else throw 0})
-  .catch(function(){st.textContent="// Couldn't send your message. Please try again in a moment."}).then(function(){btn.disabled=false})})})();
+  .then(function(r){return r.json().catch(function(){return {success:false,message:"Bad response ("+r.status+")"}})})
+  .then(function(j){
+   if(j&&(j.success===true||j.success==="true")){f.reset();st.textContent="// Signal sent — thanks, "+name+"! I'll reply to "+email+" soon."}
+   else{var m=(j&&j.message)||"";
+    if(/activat|confirm/i.test(m)){st.textContent="// Almost there — check the inbox of "+TO+" and click the FormSubmit activation link, then send again."}
+    else{st.textContent="// Couldn't send"+(m?" ("+m+")":"")+". Opening your email app instead…";setTimeout(function(){fallback(name,email,msg)},1200)}}})
+  .catch(function(){st.textContent="// Network error — opening your email app instead…";setTimeout(function(){fallback(name,email,msg)},1200)})
+  .then(function(){btn.disabled=false})})})();
 
 /* ============ SIGNAL ============ */
 (function(){var el=$("#sig");roam(el,function(x,y){el.style.setProperty("--x",x+"px");el.style.setProperty("--y",y+"px")},"always")})();
