@@ -771,7 +771,7 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
 
 /* ============ CONTACT ============ */
 (function(){var f=$("#brief"),st=$("#fstatus"),btn=$("button[type=submit]",f);
- var TO="mrmorcilla@gmail.com";
+ var TO="24-13043@lcctanauan.edu.ph";
  f.addEventListener("submit",function(e){e.preventDefault();
   if(!f.checkValidity()){f.reportValidity();return}
   var d=new FormData(f),name=d.get("name"),email=d.get("email"),msg=d.get("brief");
@@ -781,9 +781,7 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
    body:JSON.stringify({name:name,email:email,message:msg,_subject:sub,_replyto:email,_template:"table",_captcha:"false"})})
   .then(function(r){return r.json()})
   .then(function(j){if(j&&(j.success===true||j.success==="true")){f.reset();st.textContent="// Signal sent — thanks, "+name+"! I'll reply to "+email+" soon."}else throw 0})
-  .catch(function(){st.textContent="// Couldn't send right now. Opening your mail app instead — or write to "+TO;
-   location.href="mailto:"+TO+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(msg+"\n\n— "+name+" ("+email+")")})
-  .then(function(){btn.disabled=false})})})();
+  .catch(function(){st.textContent="// Couldn't send your message. Please try again in a moment."}).then(function(){btn.disabled=false})})})();
 
 /* ============ SIGNAL ============ */
 (function(){var el=$("#sig");roam(el,function(x,y){el.style.setProperty("--x",x+"px");el.style.setProperty("--y",y+"px")},"always")})();
