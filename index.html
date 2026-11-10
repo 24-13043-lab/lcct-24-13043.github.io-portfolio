@@ -773,12 +773,28 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
 /* ============ CONTACT ============ */
 (function(){
  var f=$("#brief"),st=$("#fstatus"),btn=$("button[type=submit]",f);
- // All portfolio inquiries are delivered to this inbox.
+ if(!f||!st||!btn)return;
+ // Destination inbox for all portfolio inquiries.
  var TO="24-13043@lcctanuan.edu.ph";
+ function showGmailFallback(name,email,msg,reason){
+  st.textContent="// Automatic delivery is not active yet. Open Gmail to send your inquiry manually: ";
+  var subject="[Portfolio Inquiry] New message from "+name;
+  var body="Name: "+name+"\nEmail: "+email+"\n\nMessage:\n"+msg;
+  var url="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(TO)+
+    "&su="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+  var link=document.createElement("a");
+  link.href=url;link.target="_blank";link.rel="noopener noreferrer";
+  link.textContent="OPEN GMAIL AND SEND ↗";
+  link.style.cssText="display:inline-block;margin-top:10px;color:var(--or);text-decoration:underline;text-underline-offset:4px;font-weight:700;";
+  st.appendChild(document.createElement("br"));
+  st.appendChild(link);
+  if(reason)console.warn("Portfolio contact form fallback:",reason);
+ }
  f.addEventListener("submit",function(e){
   e.preventDefault();
-  if(!f.checkValidity()){f.reportValidity();return}
-  var d=new FormData(f),name=String(d.get("name")||"").trim();
+  if(!f.checkValidity()){f.reportValidity();return;}
+  var d=new FormData(f);
+  var name=String(d.get("name")||"").trim();
   var email=String(d.get("email")||"").trim();
   var msg=String(d.get("brief")||"").trim();
   var sub="[Portfolio Inquiry] New message from "+name;
@@ -789,18 +805,22 @@ function roam(el,cb,mode){ // mode: "always" (auto-roam when idle) | "touch" (au
    headers:{"Content-Type":"application/json","Accept":"application/json"},
    body:JSON.stringify({name:name,email:email,message:msg,_subject:sub,_replyto:email,_template:"table"})
   })
-  .then(function(response){return response.json()})
+  .then(function(response){
+   return response.json().then(function(result){
+    if(!response.ok)throw new Error(result&&result.message?result.message:"Email service unavailable.");
+    return result;
+   });
+  })
   .then(function(result){
    if(result&&(result.success===true||result.success==="true")){
     f.reset();
-    st.textContent="// Inquiry sent successfully. Thank you, "+name+"!";
+    st.textContent="// Inquiry sent successfully to "+TO+". Thank you, "+name+"!";
    }else{
-    throw new Error(result&&result.message?result.message:"The email service could not accept your message.");
+    showGmailFallback(name,email,msg,result&&result.message?result.message:"FormSubmit activation is required.");
    }
   })
   .catch(function(error){
-   console.error("Portfolio contact form:",error);
-   st.textContent="// Message not sent. "+(error&&error.message?error.message:"Please try again later.");
+   showGmailFallback(name,email,msg,error&&error.message?error.message:"Network or email-service error.");
   })
   .then(function(){btn.disabled=false;});
  });
